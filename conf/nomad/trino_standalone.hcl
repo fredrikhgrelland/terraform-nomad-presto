@@ -288,6 +288,15 @@ EOF
 ${envs}
 EOF
       }
+%{ if use_memory_connector }
+      template {
+        destination = "local/trino/catalog/memory.properties"
+        data = <<EOH
+connector.name=memory
+memory.max-data-per-node=${connector_memory_max_data_per_node}
+EOH
+      }
+%{ endif }
       resources {
         memory = ${memory}
       }
